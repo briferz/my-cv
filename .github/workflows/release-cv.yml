@@ -14,13 +14,15 @@ jobs:
   build-and-release:
     name: Build and Release CVs
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Typst
-        uses: yusancky/setup-typst@v2
+        uses: typst-community/setup-typst@v4
 
       - name: Create output directory
         run: mkdir -p output

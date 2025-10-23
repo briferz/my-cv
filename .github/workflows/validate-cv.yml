@@ -16,13 +16,19 @@ jobs:
   compile-cv:
     name: Compile CV PDFs
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Typst
-        uses: yusancky/setup-typst@v2
+        uses: typst-community/setup-typst@v4
+
+      - name: Create output directory
+        run: mkdir -p output
 
       - name: Compile stylish CV
         run: typst compile cv.typ output/cv.pdf
