@@ -176,7 +176,7 @@
     #skill-item[AWS (ECS, Fargate, CDK)]
     #skill-item[Kubernetes]
     #skill-item[Terraform]
-    #skill-item[Ansible]
+    #skill-item[Crossplane]
 
     #v(0.8em)
 
@@ -191,10 +191,9 @@
 
     #text(fill: text-light, size: 9pt, weight: "bold")[Tools & Technologies]
     #skill-item[GitHub Actions]
-    #skill-item[Jenkins]
+    #skill-item[KCL]
     #skill-item[Kafka, RabbitMQ]
-    #skill-item[PostgreSQL, MongoDB]
-    #skill-item[Redis, MySQL]
+    #skill-item[SQL, NoSQL]
   ],
 
   // ========================================

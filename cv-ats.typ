@@ -74,11 +74,11 @@ Senior technical leader with 10+ years of experience building Internal Developer
 
 *Platform & DevOps:* Platform Engineering, Internal Developer Platforms, CI/CD Pipelines, Infrastructure as Code
 
-*Cloud & Infrastructure:* AWS (ECS, Fargate, CDK), Kubernetes, Terraform, Ansible
+*Cloud & Infrastructure:* AWS (ECS, Fargate, CDK), Kubernetes, Terraform, Crossplane
 
 *Programming Languages:* Python, Go, JavaScript/Node.js, Bash, C++, Java
 
-*Tools & Technologies:* GitHub Actions, Jenkins, Kafka, RabbitMQ, PostgreSQL, MongoDB, Redis, MySQL
+*Tools & Technologies:* GitHub Actions, KCL, Kafka, RabbitMQ, SQL, NoSQL
 
 *Architecture:* Software Architecture, Microservices, Message-Driven Systems, SCADA Systems, Mission-Critical Systems
 
