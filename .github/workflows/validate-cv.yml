@@ -1,0 +1,63 @@
+name: Validate CV Compilation
+
+on:
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - '**.typ'
+      - '.github/workflows/validate-cv.yml'
+  push:
+    branches: [ main, master ]
+    paths:
+      - '**.typ'
+      - '.github/workflows/validate-cv.yml'
+
+jobs:
+  compile-cv:
+    name: Compile CV PDFs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Typst
+        uses: yusancky/setup-typst@v2
+
+      - name: Compile stylish CV
+        run: typst compile cv.typ output/cv.pdf
+
+      - name: Compile ATS-friendly CV
+        run: typst compile cv-ats.typ output/cv-ats.pdf
+
+      - name: Check PDF files were created
+        run: |
+          if [ ! -f output/cv.pdf ]; then
+            echo "❌ Error: cv.pdf was not generated"
+            exit 1
+          fi
+          if [ ! -f output/cv-ats.pdf ]; then
+            echo "❌ Error: cv-ats.pdf was not generated"
+            exit 1
+          fi
+          echo "✅ Both CV PDFs compiled successfully"
+          ls -lh output/
+
+      - name: Upload CV artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: cv-pdfs
+          path: output/*.pdf
+          retention-days: 30
+
+      - name: Comment PR with success
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ CV compilation successful! Both PDF versions compiled without errors. You can download the artifacts from the workflow run.'
+            })

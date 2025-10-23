@@ -1,0 +1,83 @@
+name: Release CV PDFs
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+
+jobs:
+  build-and-release:
+    name: Build and Release CVs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Typst
+        uses: yusancky/setup-typst@v2
+
+      - name: Create output directory
+        run: mkdir -p output
+
+      - name: Compile stylish CV
+        run: typst compile cv.typ output/cv.pdf
+
+      - name: Compile ATS-friendly CV
+        run: typst compile cv-ats.typ output/cv-ats.pdf
+
+      - name: Verify PDFs
+        run: |
+          echo "📄 Generated PDFs:"
+          ls -lh output/
+          echo "✅ Both CV versions compiled successfully"
+
+      - name: Get version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Rename PDFs with version
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          cp output/cv.pdf "output/Luis-BRITO-CV-${VERSION}.pdf"
+          cp output/cv-ats.pdf "output/Luis-BRITO-CV-ATS-${VERSION}.pdf"
+          ls -lh output/
+
+      - name: Upload release assets
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            output/Luis-BRITO-CV-*.pdf
+          body: |
+            ## CV PDFs - ${{ steps.version.outputs.version }}
+
+            This release contains both versions of Luis BRITO's CV:
+
+            - **Luis-BRITO-CV-${{ steps.version.outputs.version }}.pdf** - Stylish version (two-column layout with blue sidebar)
+            - **Luis-BRITO-CV-ATS-${{ steps.version.outputs.version }}.pdf** - ATS-friendly version (single-column layout)
+
+            Choose the appropriate version based on your use case:
+            - Use the stylish version for networking, direct submissions, and portfolio
+            - Use the ATS version for online job applications and automated systems
+
+            ---
+            *Generated automatically with GitHub Actions and Typst*
+
+      - name: Upload artifacts
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cv-pdfs-${{ steps.version.outputs.version }}
+          path: output/Luis-BRITO-CV-*.pdf
+          retention-days: 90

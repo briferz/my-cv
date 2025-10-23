@@ -104,14 +104,18 @@ typst watch cv-ats.typ
 
 ```
 my-cv/
-├── cv.typ                  # Stylish two-column CV source
-├── cv-ats.typ             # ATS-friendly single-column CV source
-├── Dockerfile             # Docker configuration for compilation
-├── build-cv.sh            # Convenience script for Docker builds
-├── .gitignore             # Git ignore rules (excludes PDFs, output/, cache)
-├── README.md              # This file
-├── Profile.pdf            # LinkedIn profile (not committed)
-└── output/                # Generated PDFs (not committed)
+├── .github/
+│   └── workflows/
+│       ├── validate-cv.yml    # CI workflow for PR validation
+│       └── release-cv.yml     # CD workflow for releases
+├── cv.typ                     # Stylish two-column CV source
+├── cv-ats.typ                 # ATS-friendly single-column CV source
+├── Dockerfile                 # Docker configuration for compilation
+├── build-cv.sh                # Convenience script for Docker builds
+├── .gitignore                 # Git ignore rules (excludes PDFs, output/, cache)
+├── README.md                  # This file
+├── Profile.pdf                # LinkedIn profile (not committed)
+└── output/                    # Generated PDFs (not committed)
     ├── cv.pdf
     └── cv-ats.pdf
 ```
@@ -125,12 +129,39 @@ my-cv/
    - Networking/Direct submissions → Use `cv.pdf` (stylish)
    - Online applications → Use `cv-ats.pdf` (ATS-friendly)
 
+## 🤖 GitHub Actions CI/CD
+
+This repository includes automated workflows for quality assurance and releases:
+
+### Validation Workflow (`.github/workflows/validate-cv.yml`)
+**Triggers:** Every PR and push to main/master
+- ✅ Compiles both CV versions
+- ✅ Validates PDFs are generated successfully
+- ✅ Uploads artifacts for review
+- ✅ Comments on PRs with compilation status
+
+### Release Workflow (`.github/workflows/release-cv.yml`)
+**Triggers:** Creating a GitHub release or manual dispatch
+- 📦 Compiles both CV versions with version tags
+- 📦 Attaches PDFs to the GitHub release
+- 📦 Names files: `Luis-BRITO-CV-v1.0.0.pdf` and `Luis-BRITO-CV-ATS-v1.0.0.pdf`
+
+**To create a release:**
+```bash
+# Tag a version
+git tag v1.0.0
+git push origin v1.0.0
+
+# Create release on GitHub, or run manually via Actions tab
+```
+
 ## 💡 Tips
 
 - **For live editing:** Use `typst watch cv.typ` to auto-recompile on save
 - **Docker benefits:** Consistent output across all environments, no local Typst installation needed
 - **ATS compatibility:** Always use the ATS version for online job portals to ensure proper parsing
 - **Updates:** The "Last updated" date automatically reflects the compilation date
+- **CI validation:** Every PR automatically validates that CVs compile successfully
 
 ## 🌍 International Standards
 
