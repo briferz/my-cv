@@ -24,6 +24,9 @@ jobs:
       - name: Setup Typst
         uses: typst-community/setup-typst@v4
 
+      - name: Create output directory
+        run: mkdir -p output
+
       - name: Compile stylish CV
         run: typst compile cv.typ output/cv.pdf
 
