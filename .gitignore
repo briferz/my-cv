@@ -1,5 +1,6 @@
 # Typst output files
 *.pdf
+output/
 
 # Typst cache
 .typst-cache/
