@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(typst watch:*)",
+      "Bash(typst compile:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

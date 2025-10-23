@@ -1,0 +1,20 @@
+# Typst output files
+*.pdf
+
+# Typst cache
+.typst-cache/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Backup files
+*.bak
+*.tmp
