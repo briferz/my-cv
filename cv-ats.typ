@@ -90,9 +90,12 @@ Senior technical leader with 10+ years of experience building Internal Developer
 #heading(level: 1)[Professional Experience]
 
 #job-entry("DevOps Sr. Lead", "Spin", "Jan 2025 - Present", location: "Mexico")
-- Lead platform engineering initiatives and DevOps transformation across the organization
-- Drive strategic technical decisions for platform architecture and infrastructure
-- Mentor engineering teams and promote best practices in DevOps and platform engineering
+- Lead ~12 DevOps and Platform engineers directly and indirectly, aligning platform capabilities with product engineering and reliability needs
+- Drive an Internal Developer Platform through Backstage and NullPlatform, enabling reusable standards, cataloging, and self-service experiences
+- Lead a Crossplane-based platform that provisions and configures Kubernetes clusters, AWS Lambda, and ECS for product engineering teams through NullPlatform
+- Define and prioritize DevOps/Platform OKRs and roadmap with leadership; negotiate scope and delivery timelines with Architecture, SRE, NRE, and DBRE
+- Guide engineers through trade-offs across speed, security, cost, reliability, and autonomy, connecting technical choices to business priorities
+- Reduced infrastructure-as-code drift by 85% by adopting Crossplane versus Terraform-only workflows; reduced AWS costs by 18% through Karpenter tuning and delivered an additional 22% infrastructure cost reduction through ARM64-ready pipelines and runtime adoption
 
 #v(0.5em)
 
